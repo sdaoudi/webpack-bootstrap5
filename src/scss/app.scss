@@ -1,0 +1,9 @@
+$primary: rgb(181, 233, 165);
+$navbar-dark-active-color: rgb(0, 48, 59);
+$navbar-dark-color:                 #150d85;
+$navbar-dark-hover-color:           rgb(51, 3, 3);
+
+
+@import "~bootstrap/scss/bootstrap";
+@import "carousel.scss";
+@import "custom.scss";
