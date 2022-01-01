@@ -1,4 +1,4 @@
-# Webpack Bootstrap 4 template
+# Webpack Bootstrap 5 template
 
 ### Installation
 
