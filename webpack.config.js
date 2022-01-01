@@ -1,41 +1,35 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const devMode = process.env.NODE_ENV === 'development';
 
 module.exports = {
   entry: './src/app.js',
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      // filename: "[name].css"
+      filename: devMode ? "[name].css" : "[name].[contenthash].css",
+      // chunkFilename: devMode ? "[id].css" : "[id].[contenthash].css",
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Carousel Template · Bootstrap v5.1',
+      template: './src/index.html'
+    })
+  ],
   module: {
     rules: [
       {
         test: /\.(scss)$/,
         use: [
-          {
-            // Adds CSS to the DOM by injecting a `<style>` tag
-            loader: 'style-loader'
-          },
-          {
-            // Interprets `@import` and `url()` like `import/require()` and will resolve them
-            loader: 'css-loader'
-          },
-          {
-            // Loader for webpack to process CSS with PostCSS
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: () => {
-                  return [
-                    require('autoprefixer')
-                  ];
-                }
-              }
-            }
-          },
-          {
-            // Loads a SASS/SCSS file and compiles it to CSS
-            loader: 'sass-loader'
-          }
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: 'css-loader' },
+          { loader: 'postcss-loader' },
+          { loader: 'sass-loader' }
         ]
       }
     ]
